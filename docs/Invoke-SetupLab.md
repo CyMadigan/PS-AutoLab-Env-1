@@ -1,7 +1,7 @@
 ---
 external help file: PSAutoLab-help.xml
 Module Name: PSAutoLab
-online version:
+online version: https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-SetupLab.md
 schema: 2.0.0
 ---
 
@@ -9,29 +9,27 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Set up an Autolab configuration
+Set up an Autolab configuration.
 
 ## SYNTAX
 
 ```yaml
-Invoke-SetupLab [[-Path] <String>] [-IgnorePendingReboot] [-WhatIf] [-Confirm] [<CommonParameters>]
+Invoke-SetupLab [[-Path] <String>] [-IgnorePendingReboot] [-UseLocalTimeZone] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Once you have configured the local host, change to a configuration folder under Autolab\Configurations and run a setup.
-It is recommended that you first review any readme or instruction files.
-This command will generate the DSC mofs, download required DSC resources and create the virtual machines.
-Follow any on screen instructions to continue.
+Once you have configured the local host, change to a configuration folder under Autolab\Configurations and run a setup. It is recommended that you first review any readme or instruction files. This command will generate the Desired State Configuration (DSC) MOFs, download required DSC resources and create the virtual machines. Follow on-screen instructions to continue.
 
-You will most likely use the Setup-Lab alias.
+You will typically use the `Setup-Lab` alias.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\Autolab\Configurations\Windows10> Setup-Lab
+PS C:\Autolab\Configurations\Windows10\> Setup-Lab
 ```
 
 Follow on screen instructions and prompts.
@@ -101,6 +99,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -UseLocalTimeZone
+
+Override any configuration specified time zone and use the local time zone on this computer.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -117,4 +131,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Unattend-Lab]()
+[Unattend-Lab](Invoke-UnattendLab.md)

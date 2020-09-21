@@ -7,13 +7,9 @@ Currently on her public DSC hub located here: https://github.com/majst32/DSC_pub
 
 Additional contributors of note: Jeff Hicks
 
-
 Disclaimer
 
 This example code is provided without copyright and AS IS.  It is free for you to use and modify.
-Note: These demos should not be run as a script. These are the commands that I use in the
-demonstrations and would need to be modified for your environment.
-
 #>
 
 Configuration AutoLab {
@@ -29,7 +25,7 @@ Configuration AutoLab {
     Import-DSCResource -ModuleName 'xNetworking' -ModuleVersion '5.7.0.0'
     Import-DSCResource -ModuleName 'xDhcpServer' -ModuleVersion '2.0.0.0'
     Import-DSCResource -ModuleName 'xWindowsUpdate' -ModuleVersion '2.8.0.0'
-    Import-DSCResource -ModuleName 'xPSDesiredStateConfiguration' -ModuleVersion '8.10.0.0'
+    Import-DSCResource -ModuleName 'xPSDesiredStateConfiguration' -ModuleVersion '9.1.0'
     Import-DSCResource -ModuleName 'xPendingReboot' -ModuleVersion '0.4.0.0'
     Import-DSCResource -ModuleName 'xADCSDeployment' -ModuleVersion '1.4.0.0'
 
@@ -47,8 +43,20 @@ Configuration AutoLab {
         }
 
         #endregion
-    #region IPaddress settings
 
+        #region TLS Settings in registry
+
+        registry TLS {
+            Ensure = "present"
+            Key =  'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319' 
+            ValueName = 'SchUseStrongCrypto'
+            ValueData = '1'
+            ValueType = 'DWord'
+        }
+
+        #endregion
+
+    #region IPaddress settings
 
         If (-not [System.String]::IsNullOrEmpty($node.IPAddress)) {
             xIPAddress 'PrimaryIPAddress' {
@@ -299,7 +307,7 @@ Configuration AutoLab {
             Credential = $DomainCredential
             DependsOn  = '[xWaitForADDomain]DSCForestWait'
         }
-    }#end DomianJoin Config
+    }#end DomainJoin Config
     #endregion
     #region RSAT config
     node $AllNodes.Where( {$_.Role -eq 'RSAT'}).NodeName {

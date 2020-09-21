@@ -7,12 +7,8 @@ Currently on her public DSC hub located here: https://github.com/majst32/DSC_pub
 
 Additional contributors of note: Jeff Hicks
 
-
 Disclaimer
-
 This example code is provided without copyright and AS IS.  It is free for you to use and modify.
-Note: These demos should not be run as a script. These are the commands that I use in the
-demonstrations and would need to be modified for your environment.
 
 #>
 
@@ -24,7 +20,7 @@ Configuration AutoLab {
 
     #region DSC Resources
     Import-DSCresource -ModuleName "PSDesiredStateConfiguration" -ModuleVersion "1.1"
-    Import-DSCResource -modulename "xPSDesiredStateConfiguration" -ModuleVersion  "8.10.0.0"
+    Import-DSCResource -modulename "xPSDesiredStateConfiguration" -ModuleVersion  "9.1.0"
     Import-DSCResource -modulename "xActiveDirectory" -ModuleVersion  "3.0.0.0"
     Import-DSCResource -modulename "xComputerManagement" -ModuleVersion  "4.1.0.0"
     Import-DSCResource -modulename "xNetworking" -ModuleVersion  "5.7.0.0"
@@ -32,8 +28,8 @@ Configuration AutoLab {
     Import-DSCResource -modulename 'xWindowsUpdate' -ModuleVersion  '2.8.0.0'
     Import-DSCResource -modulename 'xPendingReboot' -ModuleVersion  '0.4.0.0'
     Import-DSCResource -modulename 'xADCSDeployment' -ModuleVersion  '1.4.0.0'
-    Import-DSCResource -modulename 'xDnsServer' -ModuleVersion  '1.15.0.0'
-    Import-DSCResource -modulename 'xWebAdministration' -ModuleVersion  '2.7.0.0'
+    Import-DSCResource -modulename 'xDnsServer' -ModuleVersion  '1.16.0.0'
+    Import-DSCResource -modulename 'xWebAdministration' -ModuleVersion  '3.1.1'
 
     #endregion
     #region All Nodes
@@ -45,6 +41,18 @@ Configuration AutoLab {
             RebootNodeIfNeeded   = $true
             AllowModuleOverwrite = $true
             ConfigurationMode    = 'ApplyOnly'
+        }
+
+        #endregion
+
+        #region TLS Settings in registry
+
+        registry TLS {
+            Ensure = "present"
+            Key =  'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319' 
+            ValueName = 'SchUseStrongCrypto'
+            ValueData = '1'
+            ValueType = 'DWord'
         }
 
         #endregion
@@ -371,7 +379,7 @@ public class FirstService : WebService
             Credential = $DomainCredential
             DependsOn  = '[xWaitForADDomain]DSCForestWait'
         }
-    }#end DomianJoin Config
+    }#end DomainJoin Config
     #endregion
 
     #region RSAT config

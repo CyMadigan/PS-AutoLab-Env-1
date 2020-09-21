@@ -7,12 +7,8 @@ Authors: Jason Helmick,Melissa (Missy) Januszko, and Jeff Hicks
 The bulk of this DC, DHCP, ADCS config is authored by Melissa (Missy) Januszko and Jason Helmick.
 Currently on her public DSC hub located here: https://github.com/majst32/DSC_public.git
 
-
 Disclaimer
-
 This example code is provided without copyright and AS IS.  It is free for you to use and modify.
-Note: These demos should not be run as a script. These are the commands that I use in the
-demonstrations and would need to be modified for your environment.
 
 #>
 
@@ -24,7 +20,7 @@ Configuration AutoLab {
     $credential = New-Object -typename Pscredential -ArgumentList Administrator, $secure
 
     Import-DscResource -ModuleName "PSDesiredStateConfiguration" -ModuleVersion "1.1"
-    Import-DscResource -ModuleName "xPSDesiredStateConfiguration" -ModuleVersion "8.10.0.0"
+    Import-DscResource -ModuleName "xPSDesiredStateConfiguration" -ModuleVersion "9.1.0"
     Import-DscResource -ModuleName "xComputerManagement" -ModuleVersion "4.1.0.0"
     Import-DscResource -ModuleName "xNetworking" -ModuleVersion "5.7.0.0"
     Import-DscResource -ModuleName "xWindowsUpdate" -ModuleVersion "2.8.0.0"
@@ -35,6 +31,19 @@ Configuration AutoLab {
             Name          = $Node.NodeName
             WorkGroupName = "Lab"
         }
+
+        #region TLS Settings in registry
+
+        registry TLS {
+            Ensure = "present"
+            Key =  'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319' 
+            ValueName = 'SchUseStrongCrypto'
+            ValueData = '1'
+            ValueType = 'DWord'
+        }
+
+        #endregion
+
         user Administrator {
             UserName               = "Administrator"
             Disabled               = $false

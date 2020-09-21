@@ -2,12 +2,27 @@
 
 This lab builds the following:
 
-* 1 DC (DC1 - Windows Server 2016 Core)
-* 1 Server (S1 - Windows Server 2016 Core)
-* 1 Nano (N1 - Windows Server 2016 Nano)
-* 1 Client with RSAT (Cli1 - Windows 10 Enterprise)
+    Computername : DC1
+    Description  : Windows Server 2016 Standard Core 64bit English Evaluation
+    Role         : {DC, DHCP, ADCS}
+    IPAddress    : 192.168.3.10
+    MemoryGB     : 2
 
-## To get started
+    Computername : S1
+    Description  : Windows Server 2016 Standard Core 64bit English Evaluation
+    Role         : {DomainJoin, Web}
+    IPAddress    : 192.168.3.50
+    MemoryGB     : 1
+
+    Computername : Cli1
+    Description  : Windows 10 64bit Enterprise 1903 English Evaluation
+    Role         : {domainJoin, RSAT, RDP}
+    IPAddress    : 192.168.3.100
+    MemoryGB     : 2
+
+This configuration no longer includes the NanoServer image since it is now deprecated.
+
+## To Get Started
 
     To run the full lab setup, which includes Setup-Lab, Run-Lab, Enable-Internet, and Validate-Lab:
     PS> Unattend-Lab
@@ -20,24 +35,38 @@ This lab builds the following:
     To start the Lsb, and apply configurations the first time:
     PS> Run-Lab
 
-    To enable Internet access for the VM's, run:
+    To enable Internet access for the VMs, run:
     PS> Enable-Internet
 
     To validate when configurations have converged:
     PS> Validate-Lab
 
-## To Stop and snapshot the lab
+## To Stop and Snapshot the Lab
 
-    To stop the lab VM's:
+    To stop the lab VMs:
     PS> Shutdown-lab
 
-    To checkpoint the VM's:
+    To checkpoint the VMs:
     PS> Snapshot-Lab
 
     To quickly rebuild the labs from the checkpoint, run:
     PS> Refresh-Lab
 
-## To remove a lab
+## To Patch a Lab
+
+    If you want to make sure the virtual machines have the latest updates from Microsoft, you can run this command:
+
+    PS> Update-Lab
+
+    Because this may take some time to run, you can also run it as a background job.
+
+    PS> Update-Lab -asjob
+
+## To Remove a Lab
 
     To destroy the lab to build again:
     PS> Wipe-Lab
+
+    You will be prompted for each virtual machine. Or you can force the removal and suppress the prompts:
+
+    PS> Wipe-Lab -force

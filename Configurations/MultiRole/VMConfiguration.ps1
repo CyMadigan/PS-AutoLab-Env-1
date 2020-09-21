@@ -8,7 +8,7 @@ $credential = New-Object -typename Pscredential -ArgumentList Administrator, $se
 
 #region DSC Resources
     Import-DSCresource -ModuleName "PSDesiredStateConfiguration" -ModuleVersion "1.1"
-    Import-DSCResource -modulename "xPSDesiredStateConfiguration" -ModuleVersion  "8.9.0.0"
+    Import-DSCResource -modulename "xPSDesiredStateConfiguration" -ModuleVersion  "9.1.0"
     Import-DSCResource -modulename "xActiveDirectory" -ModuleVersion  "3.0.0.0"
     Import-DSCResource -modulename "xComputerManagement" -ModuleVersion  "4.1.0.0"
     Import-DSCResource -modulename "xNetworking" -ModuleVersion  "5.7.0.0"
@@ -16,7 +16,7 @@ $credential = New-Object -typename Pscredential -ArgumentList Administrator, $se
     Import-DSCResource -modulename 'xWindowsUpdate' -ModuleVersion  '2.8.0.0'
     Import-DSCResource -modulename 'xPendingReboot' -ModuleVersion  '0.4.0.0'
     Import-DSCResource -modulename 'xADCSDeployment' -ModuleVersion  '1.4.0.0'
-    Import-DSCResource -modulename 'xDnsServer' -ModuleVersion  '1.14.0.0'
+    Import-DSCResource -modulename 'xDnsServer' -ModuleVersion  '1.16.0.0'
 
 
 #endregion
@@ -33,8 +33,19 @@ $credential = New-Object -typename Pscredential -ArgumentList Administrator, $se
 
 #endregion
 
-#region IPaddress settings
+#region TLS Settings in registry
 
+registry TLS {
+    Ensure = "present"
+    Key =  'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319' 
+    ValueName = 'SchUseStrongCrypto'
+    ValueData = '1'
+    ValueType = 'DWord'
+}
+
+#endregion
+
+#region IPaddress settings
 
     If (-not [System.String]::IsNullOrEmpty($node.IPAddress)) {
         xIPAddress 'PrimaryIPAddress' {
@@ -70,7 +81,6 @@ $credential = New-Object -typename Pscredential -ArgumentList Administrator, $se
 #endregion
 
 #region Firewall Rules
-
 
 $LabData = Import-PowerShellDataFile -Path $psscriptroot\*.psd1
     $FireWallRules = $labdata.Allnodes.FirewallRuleNames
@@ -129,7 +139,6 @@ $LabData = Import-PowerShellDataFile -Path $psscriptroot\*.psd1
     $OUs = (Get-Content $PSScriptRoot\AD-OU.json | ConvertFrom-Json)
     $Users = (Get-Content $PSScriptRoot\AD-Users.json | ConvertFrom-Json)
     $Groups = (Get-Content $PSScriptRoot\AD-Group.json | ConvertFrom-Json)
-
 
         foreach ($OU in $OUs) {
             xADOrganizationalUnit $OU.Name {
@@ -291,7 +300,7 @@ $LabData = Import-PowerShellDataFile -Path $psscriptroot\*.psd1
             Credential = $DomainCredential
             DependsOn = '[xWaitForADDomain]DSCForestWait'
         }
-    }#end DomianJoin Config
+    }#end DomainJoin Config
 #endregion
 
 #region RSAT config

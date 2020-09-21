@@ -1,7 +1,7 @@
 ---
 external help file: PSAutoLab-help.xml
 Module Name: PSAutoLab
-online version:
+online version: https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-UnattendLab.md
 schema: 2.0.0
 ---
 
@@ -9,13 +9,12 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Create an Autolab configuration unattended
+Create an Autolab configuration unattended.
 
 ## SYNTAX
 
 ```yaml
-
-Invoke-UnattendLab [[-Path] <String>] [-AsJob] [-WhatIf] [-Confirm] [<CommonParameters>]
+Invoke-UnattendLab [[-Path] <String>] [-AsJob] [-UseLocalTimeZone] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,14 +26,11 @@ Normally when you set up an Autolab configuration, you can do it manually by run
 * Enable-Internet
 * Validate-Lab
 
-Or you can use this command which will string all of these commands together.
-You may need to answer an initial prompt to update the version of nuget.exe but otherwise the installation should run unattended.
-Note that the validation will loop for awhile until the configurations are finalized and converged.
-You can press Ctrl+C at any time to break out of the test.
+Or you can use this command which will string all of these commands together. You may need to answer an initial prompt to update the version of nuget.exe but otherwise the installation should run unattended. Note that the validation will loop for awhile until the configurations are finalized and converged. You can press Ctrl+C at any time to break out of the test.
 
 You should run this command from within the configuration folder.
 
-You will most likely use the Unattend-Lab alias.
+You will typically use the Unattend-Lab alias.
 
 ## EXAMPLES
 
@@ -45,7 +41,6 @@ PS C:\Autolab\Configurations\PowerShellLab> Unattend-Lab
 ```
 
 Follow any onscreen instructions or prompts.
-
 
 ### Example 2
 
@@ -122,6 +117,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -UseLocalTimeZone
+
+Override any configuration specified time zone and use the local time zone on this computer.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -138,4 +149,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Setup-Lab]()
+[Setup-Lab](Invoke-SetupLab.md)

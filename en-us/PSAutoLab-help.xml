@@ -6,11 +6,11 @@
       <command:verb>Enable</command:verb>
       <command:noun>Internet</command:noun>
       <maml:description>
-        <maml:para>Configure lab configuration with Internet access</maml:para>
+        <maml:para>Configure lab configuration with Internet access.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will enable Internet access to the virtual machines in the current lab configuration using a NAT interface. This command should be run from within the configuration directory after the virtual machines have been set up.</maml:para>
+      <maml:para>This function will enable Internet access for the virtual machines in the current lab configuration using a NAT interface. This command should be run from the configuration directory after the virtual machines have been set up.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -125,6 +125,10 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Enable-Internet.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-NetNat</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -140,11 +144,11 @@
       <command:verb>Get</command:verb>
       <command:noun>LabSnapshot</command:noun>
       <maml:description>
-        <maml:para>List available snapshots for a lab configuration</maml:para>
+        <maml:para>List available snapshots for a lab configuration.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>You can use Snapshot-Lab to create a set of checkpoints for an Autolab configuration. The default snapshot name is LabConfigured but you can create a snapshot with your own name. You need to know the snapshot name in order to restore it with Refresh-Lab. This command makes it easier to discover what snapshots you have created.</maml:para>
+      <maml:para>You can use Snapshot-Lab to create a set of checkpoints for an Autolab configuration. The default snapshot name is "LabConfigured", but you can create a snapshot with your own name. You need to know the snapshot name in order to restore it with Refresh-Lab. This command makes it easier to discover what snapshots you have created.</maml:para>
       <maml:para>Note that if you want to remove a snapshot, use the Hyper-V manager or PowerShell cmdlets as you would any other snapshot.</maml:para>
     </maml:description>
     <command:syntax>
@@ -206,9 +210,10 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\Autolab\Configurations\SingleServer&gt; get-labsnapshot
+        <dev:code>PS C:\Autolab\Configurations\SingleServer&gt; Get-LabSnapshot
 
 All VMs in the configuration should belong to the same snapshot.
+
 VMName Name          SnapshotType CreationTime          ParentSnapshotName
 ------ ----          ------------ ------------          ------------------
 S1     PreInstall     Standard     9/11/2019 12:06:51 PM</dev:code>
@@ -219,11 +224,152 @@ S1     PreInstall     Standard     9/11/2019 12:06:51 PM</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Get-LabSnapshot.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Snapshot-Lab</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Refresh-Lab</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-LabSummary</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>LabSummary</command:noun>
+      <maml:description>
+        <maml:para>Get a summary of the AutoLab configuration.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command makes it easy to see what the lab will look like when finished. You can see the computer names, what operating system they will be running and how much memory each will require. Even though dynamic memory will be used in the Hyper-V configuration, for planning purposes you should assume you will need the full amount. This should make it easier to determine if you have enough memory in your computer. Run the command in the root of the configuration folder.</maml:para>
+      <maml:para>If you have modified the configuration data file to use the EnvironmentPrefix setting, that value will be included as part of the virtual machine name.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-LabSummary</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>The PATH to the lab configuration folder. Normally, you should run all commands from within the configuration folder. Do NOT include the psd1 file name.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>The PATH to the lab configuration folder. Normally, you should run all commands from within the configuration folder. Do NOT include the psd1 file name.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\Autolab\Configurations\MultiRole-Server-2016\&gt; Get-LabSummary
+
+
+Computername : DC1
+VMName       : DC1
+InstallMedia : 2016_x64_Standard_Core_EN_Eval
+Description  : Windows Server 2016 Standard Core 64bit English Evaluation
+Role         : {DC, DHCP, ADCS}
+IPAddress    : 192.168.3.10
+MemoryGB     : 2
+Processors   : 2
+Lab          : MultiRole-Server-2016
+
+Computername : S1
+VMName       : S1
+InstallMedia : 2016_x64_Standard_Core_EN_Eval
+Description  : Windows Server 2016 Standard Core 64bit English Evaluation
+Role         : {DomainJoin, Web}
+IPAddress    : 192.168.3.50
+MemoryGB     : 1
+Processors   : 1
+Lab          : MultiRole-Server-2016
+
+Computername : N1
+VMName       : N1
+InstallMedia : 2016_x64_Standard_Nano_DSC_EN_Eval
+Description  :
+Role         :
+IPAddress    : 192.168.3.60
+MemoryGB     : 1
+Processors   : 1
+Lab          : MultiRole-Server-2016
+
+Computername : Cli1
+VMName       : Cli1
+InstallMedia : WIN10_x64_Enterprise_EN_Eval
+Description  : Windows 10 64bit Enterprise 1903 English Evaluation
+Role         : {domainJoin, RSAT, RDP}
+IPAddress    : 192.168.3.100
+MemoryGB     : 2
+Processors   : 2
+Lab          : MultiRole-Server-2016</dev:code>
+        <dev:remarks>
+          <maml:para>Get the configuration for the MultiRole-Server-2016 lab.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\Autolab\Configurations\&gt; dir -Directory -exclude Archive | Get-LabSummary | Out-GridView</dev:code>
+        <dev:remarks>
+          <maml:para>Go through every active configuration and pipe the folder to Get-LabSummary. The total results are displayed using Out-GridView.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Get-LabSummary.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-VM</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -238,7 +384,7 @@ S1     PreInstall     Standard     9/11/2019 12:06:51 PM</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>If you need to report a problem with Autolab, use this command to get relevant configuration and host information. Include the output in your GitHub issue.</maml:para>
+      <maml:para>If you need to report a problem with AutoLab, use this command to get relevant configuration and host information. Please include the output in your GitHub issue.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -276,23 +422,46 @@ S1     PreInstall     Standard     9/11/2019 12:06:51 PM</dev:code>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-PSAutoLabSetting
 
-PSVersion     : 5.1.18362.145
-PSEdition     : Desktop
-OS            : Microsoft Windows 10 Pro
-IsElevated    : True
-HyperV        : 10.0.18362.1
-PSAutolab     : {4.3.0, 4.1.1, 4.1.0, 4.0.0}
-Lability      : {0.18.0, 0.12.4, 0.10.1}
-Pester        : 4.9.0
-MemoryGB      : 32
-PctFreeMemory : 15.24</dev:code>
+AutoLab                     : C:\Autolab
+PSVersion                   : 5.1.19041.1
+PSEdition                   : Desktop
+OS                          : Microsoft Windows 10 Pro
+FreeSpaceGB                 : 172.49
+MemoryGB                    : 32
+PctFreeMemory               : 44.66
+Processor                   : Intel(R) Core(TM) i7-7700T CPU @ 2.90GHz
+IsElevated                  : True
+RemotingEnabled             : True
+HyperV                      : 10.0.19041.1
+PSAutolab                   : {4.10.0, 4.9.0}
+Lability                    : {0.19.1, 0.19.0, 0.18.0}
+Pester                      : {4.10.1, 4.10.0, 4.9.0, 4.4.4...}
+PowerShellGet               : 2.2.3
+PSDesiredStateConfiguration : 1.1</dev:code>
         <dev:remarks>
-          <maml:para>The output will also show previously installed versions of the PSAutolab and Lability modules. Only the latest version should be loaded. You can remove the older versions if you no longer need them by running Uninstall-Module -name &lt;modulename&gt; -requiredversion &lt;version number&gt;.</maml:para>
+          <maml:para>The output will also show previously installed versions of the PSAutoLab and Lability modules. Only the latest version should be loaded. You can remove the older versions if you no longer need them by running a command like `Uninstall-Module -name Lability -requiredversion 0.18.0`. The FreeSpaceGB value is the amount of free space on the drive containing your AutoLab folder.</maml:para>
           <maml:para>Copy and paste this information into a GitHub issue along with any relevant error messages.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Get-PSAutoLabSetting.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Module</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Volume</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-CimInstance</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -300,12 +469,12 @@ PctFreeMemory : 15.24</dev:code>
       <command:verb>Invoke</command:verb>
       <command:noun>RefreshHost</command:noun>
       <maml:description>
-        <maml:para>Refresh local host Autolab configuration</maml:para>
+        <maml:para>Refresh local host AutoLab configuration.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>If you keep the PSAutoLab module for any length of time, you will most likely update from time to time. Part of the update might include fixes or enhancements to current configurations or even entirely new configurations. This command makes it easier to keep your configurations up to date. After updating the PSAutoLab module, run this command which will verify you have the correct version of the Lability module and copy configuration files to your Autolab\ConfigurationPath folder. This will not overwrite any MOF files or delete anything.</maml:para>
-      <maml:para>You will most likely use the Refresh-Host alias.</maml:para>
+      <maml:para>If you keep the PSAutoLab module for any length of time, you will most likely update from time to time. Part of the update might include fixes or enhancements to current configurations or even entirely new configurations. This command makes it easier to keep your configurations up to date. After updating the PSAutoLab module, run this function which will verify you have the correct version of the Lability module and copy configuration files to your Autolab\ConfigurationPath folder. This will not overwrite any MOF files or delete anything.</maml:para>
+      <maml:para>You will typically use the Refresh-Host alias.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -337,6 +506,17 @@ PctFreeMemory : 15.24</dev:code>
           <maml:name>WhatIf</maml:name>
           <maml:Description>
             <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SkipPublisherCheck</maml:name>
+          <maml:Description>
+            <maml:para>If you try to refresh the host and get an error or warning about a certificate mismatch, use this parameter to bypass skipping the code signing certificate.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -383,6 +563,18 @@ PctFreeMemory : 15.24</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SkipPublisherCheck</maml:name>
+        <maml:Description>
+          <maml:para>If you try to refresh the host and get an error or warning about a certificate mismatch, use this parameter to bypass skipping the code signing certificate.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -421,7 +613,12 @@ This process will not remove any configurations that have been deleted from the 
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-RefreshHost.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -433,7 +630,7 @@ This process will not remove any configurations that have been deleted from the 
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to restore your Autolab configuration from the last checkpoint. You will most likely use the Refresh-Lab alias.</maml:para>
+      <maml:para>Use this command to restore your Autolab configuration from the last checkpoint. You will typically use the Refresh-Lab alias.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -572,6 +769,10 @@ This process will not remove any configurations that have been deleted from the 
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-RefreshLab.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Snapshot-Lab</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -588,7 +789,7 @@ This process will not remove any configurations that have been deleted from the 
     </command:details>
     <maml:description>
       <maml:para>Use this command to start a PSAutolab configuration. This command will start all of the virtual machines in the proper order. It is assumed you are running this from within the configuration folder.</maml:para>
-      <maml:para>You will most likely use the Run-Lab alias.</maml:para>
+      <maml:para>You will typically use the Run-Lab alias.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -703,6 +904,10 @@ This process will not remove any configurations that have been deleted from the 
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-RunLab.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Shutdown-Lab</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -714,12 +919,12 @@ This process will not remove any configurations that have been deleted from the 
       <command:verb>Invoke</command:verb>
       <command:noun>SetupHost</command:noun>
       <maml:description>
-        <maml:para>Prepare the localhost for PSAutolab</maml:para>
+        <maml:para>Prepare the localhost for PSAutolab.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The first time you install the PSAutolab module, you will need to configure the localhost. This configuration will include adding the Hyper-V feature if it is not already installed. It will also install the supported version of the Lability module from the PowerShell Gallery. You only need to run this command once. If you update the PSAutolab module at some point, it is recommended that you run Refresh-Host.</maml:para>
-      <maml:para>You will most likely use the Setup-Host alias.</maml:para>
+      <maml:para>The first time you install the PSAutoLab module, you will need to configure the localhost. This configuration will include adding the Hyper-V feature if it is not already installed. It will also install the supported version of the Lability module from the PowerShell Gallery. You only need to run this command once. If you update the PSAutoLab module at some point, it is recommended that you run Refresh-Host.</maml:para>
+      <maml:para>You will typically use the Setup-Host alias.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -727,7 +932,7 @@ This process will not remove any configurations that have been deleted from the 
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>DestinationPath</maml:name>
           <maml:Description>
-            <maml:para>Specify the parent path. The command will create the folder.</maml:para>
+            <maml:para>Specify the parent path for your Autolab setup. The default is C:\Autolab The command will create the folder.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -776,7 +981,7 @@ This process will not remove any configurations that have been deleted from the 
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>DestinationPath</maml:name>
         <maml:Description>
-          <maml:para>Specify the parent path. The command will create the folder.</maml:para>
+          <maml:para>Specify the parent path for your Autolab setup. The default is C:\Autolab The command will create the folder.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -831,8 +1036,19 @@ This process will not remove any configurations that have been deleted from the 
           <maml:para>Follow the on-screen prompts. If you have to install the Hyper-V feature you definitely should reboot before setting up any lab configurations.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Setup-Host -destination D:\Autolab</dev:code>
+        <dev:remarks>
+          <maml:para>This will setup the Autolab module but put the necessary files on the D: drive. It is recommended that you use Autolab as the folder name.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-SetupHost.md</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Refresh-Host</maml:linkText>
         <maml:uri></maml:uri>
@@ -845,12 +1061,12 @@ This process will not remove any configurations that have been deleted from the 
       <command:verb>Invoke</command:verb>
       <command:noun>SetupLab</command:noun>
       <maml:description>
-        <maml:para>Set up an Autolab configuration</maml:para>
+        <maml:para>Set up an Autolab configuration.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Once you have configured the local host, change to a configuration folder under Autolab\Configurations and run a setup. It is recommended that you first review any readme or instruction files. This command will generate the DSC mofs, download required DSC resources and create the virtual machines. Follow any on screen instructions to continue.</maml:para>
-      <maml:para>You will most likely use the Setup-Lab alias.</maml:para>
+      <maml:para>Once you have configured the local host, change to a configuration folder under Autolab\Configurations and run a setup. It is recommended that you first review any readme or instruction files. This command will generate the Desired State Configuration (DSC) MOFs, download required DSC resources and create the virtual machines. Follow on-screen instructions to continue.</maml:para>
+      <maml:para>You will typically use the `Setup-Lab` alias.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -893,6 +1109,17 @@ This process will not remove any configurations that have been deleted from the 
           <maml:name>WhatIf</maml:name>
           <maml:Description>
             <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UseLocalTimeZone</maml:name>
+          <maml:Description>
+            <maml:para>Override any configuration specified time zone and use the local time zone on this computer.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -951,6 +1178,18 @@ This process will not remove any configurations that have been deleted from the 
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>UseLocalTimeZone</maml:name>
+        <maml:Description>
+          <maml:para>Override any configuration specified time zone and use the local time zone on this computer.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -980,13 +1219,17 @@ This process will not remove any configurations that have been deleted from the 
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\Autolab\Configurations\Windows10&gt; Setup-Lab</dev:code>
+        <dev:code>PS C:\Autolab\Configurations\Windows10\&gt; Setup-Lab</dev:code>
         <dev:remarks>
           <maml:para>Follow on screen instructions and prompts.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-SetupLab.md</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Unattend-Lab</maml:linkText>
         <maml:uri></maml:uri>
@@ -999,12 +1242,12 @@ This process will not remove any configurations that have been deleted from the 
       <command:verb>Invoke</command:verb>
       <command:noun>ShutdownLab</command:noun>
       <maml:description>
-        <maml:para>Shutdown an Autolab configuration</maml:para>
+        <maml:para>Shutdown an Autolab configuration.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
       <maml:para>Use this command to shutdown the virtual machines of an Autolab configuration in the proper order. You can also manually use the Hyper-V management console or cmdlets to do the same thing. It is recommended that you shutdown any domain controllers in your configuration last. It is assumed you are running this from within the configuration folder.</maml:para>
-      <maml:para>You will most likely use the Shutdown-Lab alias.</maml:para>
+      <maml:para>You will typically use the Shutdown-Lab alias.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1119,6 +1362,10 @@ This process will not remove any configurations that have been deleted from the 
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-ShutdownLab.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Run-Lab</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1130,12 +1377,12 @@ This process will not remove any configurations that have been deleted from the 
       <command:verb>Invoke</command:verb>
       <command:noun>SnapshotLab</command:noun>
       <maml:description>
-        <maml:para>Create virtual machine snapshots of your Autolab configuration</maml:para>
+        <maml:para>Create virtual machine snapshots of your Autolab configuration.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
       <maml:para>Use this command to snapshot or checkpoint an entire Autolab configuration. You can later restore your configuration with Refresh-Lab. It is assumed you are running this command from within the configuration folder.</maml:para>
-      <maml:para>You will most likely use the Snapshot-Lab alias.</maml:para>
+      <maml:para>You will typically use the Snapshot-Lab alias.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1274,6 +1521,10 @@ This process will not remove any configurations that have been deleted from the 
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-SnapshotLab.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Refresh-Lab</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1289,7 +1540,7 @@ This process will not remove any configurations that have been deleted from the 
       <command:verb>Invoke</command:verb>
       <command:noun>UnattendLab</command:noun>
       <maml:description>
-        <maml:para>Create an Autolab configuration unattended</maml:para>
+        <maml:para>Create an Autolab configuration unattended.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -1301,7 +1552,7 @@ This process will not remove any configurations that have been deleted from the 
       <maml:para></maml:para>
       <maml:para>Or you can use this command which will string all of these commands together. You may need to answer an initial prompt to update the version of nuget.exe but otherwise the installation should run unattended. Note that the validation will loop for awhile until the configurations are finalized and converged. You can press Ctrl+C at any time to break out of the test.</maml:para>
       <maml:para>You should run this command from within the configuration folder.</maml:para>
-      <maml:para>You will most likely use the Unattend-Lab alias.</maml:para>
+      <maml:para>You will typically use the Unattend-Lab alias.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1344,6 +1595,17 @@ This process will not remove any configurations that have been deleted from the 
           <maml:name>AsJob</maml:name>
           <maml:Description>
             <maml:para>Run the unattend process in a PowerShell background job.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UseLocalTimeZone</maml:name>
+          <maml:Description>
+            <maml:para>Override any configuration specified time zone and use the local time zone on this computer.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1402,6 +1664,18 @@ This process will not remove any configurations that have been deleted from the 
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>UseLocalTimeZone</maml:name>
+        <maml:Description>
+          <maml:para>Override any configuration specified time zone and use the local time zone on this computer.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -1446,6 +1720,10 @@ This process will not remove any configurations that have been deleted from the 
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-UnattendLab.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Setup-Lab</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1457,13 +1735,13 @@ This process will not remove any configurations that have been deleted from the 
       <command:verb>Invoke</command:verb>
       <command:noun>ValidateLab</command:noun>
       <maml:description>
-        <maml:para>Validate an Autolab configuration</maml:para>
+        <maml:para>Validate an Autolab configuration.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
       <maml:para>Lab configurations in Autolab use Desired State Configuration. These configurations can take some time to finish and converge. This command will validate that all virtual machines in the configuration are properly configured. It will loop through every 5 minutes running a Pester test suite for the configuration. Once all tests pass, the command will run the test one more time to display the results. You will see errors until all tests have passed. Depending on the configuration, this test could take up to 60 minutes to complete. You can press Ctrl+C at any time to break out of the test. If you prefer, you can also manually run the Pester test.</maml:para>
       <maml:para>PS C:\Autolab\Configurations\PowerShellLab&gt; Invoke-Pester .\VMvalidate.test.ps1</maml:para>
-      <maml:para>You will most likely use the Validate-Lab alias.</maml:para>
+      <maml:para>You will typically use the Validate-Lab alias.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1532,6 +1810,10 @@ This process will not remove any configurations that have been deleted from the 
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-ValidateLab.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Invoke-Pester</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1543,14 +1825,14 @@ This process will not remove any configurations that have been deleted from the 
       <command:verb>Invoke</command:verb>
       <command:noun>WipeLab</command:noun>
       <maml:description>
-        <maml:para>Remove an Autolab configuration</maml:para>
+        <maml:para>Remove an Autolab configuration.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
       <maml:para>You can use this command to remove all files and virtual machines related to an Autolab configuration. The command will stop any running virtual machines for you. It is assumed you will be running this command from within a configuration folder.</maml:para>
       <maml:para>If you intend to rebuild the lab or create another configuration, you do not need to delete the virtual switch (LabNat).</maml:para>
       <maml:para>Use -Force to suppress all prompts.</maml:para>
-      <maml:para>You will most likely use the Wipe-Lab alias.</maml:para>
+      <maml:para>You will typically use the Wipe-Lab alias.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1718,8 +2000,210 @@ This process will not remove any configurations that have been deleted from the 
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-WipeLab.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Setup-Lab</maml:linkText>
         <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Open-PSAutoLabHelp</command:name>
+      <command:verb>Open</command:verb>
+      <command:noun>PSAutoLabHelp</command:noun>
+      <maml:description>
+        <maml:para>Open the PDF help manual for the PSAutoLab module.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This module ships with a PDF that contains documentation files found in the GitHub repository as well copies of all command help. You might find it easier to read the PDF than to use PowerShell.</maml:para>
+      <maml:para>This command was introduced in version 4.17.0 of the PSAutoLab module.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Open-PSAutoLabHelp</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Open-PSAutoLabHelp</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Open-PSAutoLabHelp.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Test-LabDSCResource</command:name>
+      <command:verb>Test</command:verb>
+      <command:noun>LabDSCResource</command:noun>
+      <maml:description>
+        <maml:para>Test for required DSC resources.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This is a troubleshooting command for the PSAutoLab module. It is designed to be be run in a lab configuration folder. It will report on the required Desired State Configuration (DSC) resources and any versions that may already be installed. This can be used to diagnose potential version conflicts. Resource are installed automatically when you build a configuration so you don't need to take any action unless directed.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Test-LabDSCResource</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>Specify the folder path of an AutoLab configuration or change locations to the folder and run this command.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>.</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>Specify the folder path of an AutoLab configuration or change locations to the folder and run this command.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>.</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\Auto\Lab\Configurations\MultiRole&gt; Test-LabDSCResource
+
+ModuleName        : xActiveDirectory
+RequiredVersion   : 3.0.0.0
+Installed         : True
+InstalledVersions : {3.0.0.0, 2.16.0.0, 2.14.0.0}
+Configuration     : MultiRole
+
+ModuleName        : xComputerManagement
+RequiredVersion   : 4.1.0.0
+Installed         : True
+InstalledVersions : {4.1.0.0, 2.0.0.0, 1.8.0.0}
+Configuration     : MultiRole
+
+ModuleName        : xNetworking
+RequiredVersion   : 5.7.0.0
+Installed         : True
+InstalledVersions : 5.7.0.0
+Configuration     : MultiRole
+
+ModuleName        : xDhcpServer
+RequiredVersion   : 2.0.0.0
+Installed         : True
+InstalledVersions : {2.0.0.0, 1.5.0.0}
+Configuration     : MultiRole
+
+ModuleName        : xWindowsUpdate
+RequiredVersion   : 2.8.0.0
+Installed         : True
+InstalledVersions : {2.8.0.0, 2.7.0.0, 2.5.0.0}
+Configuration     : MultiRole
+
+ModuleName        : xPSDesiredStateConfiguration
+RequiredVersion   : 9.1.0
+Installed         : True
+InstalledVersions : {9.1.0, 9.0.0, 8.10.0.0, 8.9.0.0…}
+Configuration     : MultiRole
+
+ModuleName        : xPendingReboot
+RequiredVersion   : 0.4.0.0
+Installed         : True
+InstalledVersions : {0.4.0.0, 0.3.0.0}
+Configuration     : MultiRole
+
+ModuleName        : xADCSDeployment
+RequiredVersion   : 1.4.0.0
+Installed         : True
+InstalledVersions : {1.4.0.0, 1.1.0.0, 1.0.0.0}
+Configuration     : MultiRole
+
+ModuleName        : xDnsServer
+RequiredVersion   : 1.16.0.0
+Installed         : True
+InstalledVersions : {1.16.0.0, 1.15.0.0, 1.14.0.0, 1.7.0.0}
+Configuration     : MultiRole</dev:code>
+        <dev:remarks>
+          <maml:para>Run this command from the lab configuration folder.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Test-LabDSCResource.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1729,7 +2213,7 @@ This process will not remove any configurations that have been deleted from the 
       <command:verb>Update</command:verb>
       <command:noun>Lab</command:noun>
       <maml:description>
-        <maml:para>Run Windows update on Autolab virtual machines</maml:para>
+        <maml:para>Run Windows update on Autolab virtual machines.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -1839,6 +2323,10 @@ WARNING: SRV3 requires a reboot</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Update-Lab.md</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Job</maml:linkText>
         <maml:uri></maml:uri>

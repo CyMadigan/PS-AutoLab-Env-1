@@ -1,7 +1,7 @@
 ---
 external help file: PSAutoLab-help.xml
 Module Name: PSAutoLab
-online version:
+online version: https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-SetupHost.md
 schema: 2.0.0
 ---
 
@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Prepare the localhost for PSAutolab
+Prepare the localhost for PSAutolab.
 
 ## SYNTAX
 
@@ -19,13 +19,9 @@ Invoke-SetupHost [[-DestinationPath] <String>] [-WhatIf] [-Confirm] [<CommonPara
 
 ## DESCRIPTION
 
-The first time you install the PSAutolab module, you will need to configure the localhost.
-This configuration will include adding the Hyper-V feature if it is not already installed.
-It will also install the supported version of the Lability module from the PowerShell Gallery.
-You only need to run this command once.
-If you update the PSAutolab module at some point, it is recommended that you run Refresh-Host.
+The first time you install the PSAutoLab module, you will need to configure the localhost. This configuration will include adding the Hyper-V feature if it is not already installed. It will also install the supported version of the Lability module from the PowerShell Gallery. You only need to run this command once. If you update the PSAutoLab module at some point, it is recommended that you run Refresh-Host.
 
-You will most likely use the Setup-Host alias.
+You will typically use the Setup-Host alias.
 
 ## EXAMPLES
 
@@ -36,6 +32,14 @@ PS C:\> Setup-Host
 ```
 
 Follow the on-screen prompts. If you have to install the Hyper-V feature you definitely should reboot before setting up any lab configurations.
+
+### Example 2
+
+```powershell
+PS C:\> Setup-Host -destination D:\Autolab
+```
+
+This will setup the Autolab module but put the necessary files on the D: drive. It is recommended that you use Autolab as the folder name.
 
 ## PARAMETERS
 
@@ -57,7 +61,8 @@ Accept wildcard characters: False
 
 ### -DestinationPath
 
-Specify the parent path.
+Specify the parent path for your Autolab setup.
+The default is C:\Autolab
 The command will create the folder.
 
 ```yaml
@@ -105,4 +110,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Refresh-Host]()
+[Refresh-Host](Invoke-RefreshHost.md)

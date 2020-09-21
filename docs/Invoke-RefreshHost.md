@@ -1,7 +1,7 @@
 ---
 external help file: PSAutoLab-help.xml
 Module Name: PSAutoLab
-online version:
+online version: https://github.com/pluralsight/PS-AutoLab-Env/blob/master/docs/Invoke-RefreshHost.md
 schema: 2.0.0
 ---
 
@@ -9,23 +9,19 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Refresh local host Autolab configuration
+Refresh local host AutoLab configuration.
 
 ## SYNTAX
 
 ```yaml
-Invoke-RefreshHost [[-Destination] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Invoke-RefreshHost [[-Destination] <String>] [-SkipPublisherCheck] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-If you keep the PSAutoLab module for any length of time, you will most likely update from time to time.
-Part of the update might include fixes or enhancements to current configurations or even entirely new configurations.
-This command makes it easier to keep your configurations up to date.
-After updating the PSAutoLab module, run this command which will verify you have the correct version of the Lability module and copy configuration files to your Autolab\ConfigurationPath folder.
-This will not overwrite any MOF files or delete anything.
+If you keep the PSAutoLab module for any length of time, you will most likely update from time to time. Part of the update might include fixes or enhancements to current configurations or even entirely new configurations. This command makes it easier to keep your configurations up to date. After updating the PSAutoLab module, run this function which will verify you have the correct version of the Lability module and copy configuration files to your Autolab\ConfigurationPath folder. This will not overwrite any MOF files or delete anything.
 
-You will most likely use the Refresh-Host alias.
+You will typically use the Refresh-Host alias.
 
 ## EXAMPLES
 
@@ -81,6 +77,22 @@ The cmdlet is not run.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SkipPublisherCheck
+
+If you try to refresh the host and get an error or warning about a certificate mismatch, use this parameter to bypass skipping the code signing certificate.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named
